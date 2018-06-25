@@ -1,1 +1,2 @@
 DOCUMENTROOT=/phabricator/webroot
+INCLUDE_PATH=.:/opt/app-root/src/phabricator:/opt/app-root/src/libphutil:/opt/rh/rh-php71/root/usr/share/pear
