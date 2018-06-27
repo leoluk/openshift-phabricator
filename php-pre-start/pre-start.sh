@@ -8,13 +8,18 @@ phabricator/bin/config set mysql.pass ${DATABASE_SERVICE_PASSWORD}
 phabricator/bin/config set repository.default-local-path ${APP_ROOT}/repositories
 phabricator/bin/config set storage.local-disk.path ${APP_ROOT}/files
 
-if [[ -z $APHLICT_HOST ]]; then
-  echo "APHLICT_HOST not set, skipping"
-else
-  phabricator/bin/config set notification.servers '[
+phabricator/bin/config set pygments.enabled true
+phabricator/bin/config set security.strict-transport-security true
+phabricator/bin/config set security.require-https true
+
+phabricator/bin/config set phabricator.base-uri https://${PHAB_BASE_HOST}
+phabricator/bin/config set security.alternate-file-domain https://${PHAB_FILE_HOST}
+
+phabricator/bin/config set notification.servers '[
   {
     "type": "client",
-    "host": "'${APHLICT_HOST}'",
+    "host": "'${PHAB_BASE_HOST}'",
+    "path": "/ws",
     "port": 443,
     "protocol": "https"
   },
@@ -25,7 +30,6 @@ else
     "protocol": "http"
   }
 ]'
-fi
 
 echo "Running database migrations..."
 phabricator/bin/storage upgrade --force

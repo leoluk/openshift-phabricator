@@ -19,6 +19,12 @@ parameters:
   name: GIT_REF
   required: true
   value: master
+- displayName: Phabricator Base Domain
+  name: PHAB_BASE_HOST
+  required: true
+- displayName: Phabricator File/CDN Domain
+  name: PHAB_FILE_HOST
+  required: true
 - description: Password for the MariaDB root user.
   displayName: MariaDB root Password
   from: '[a-zA-Z0-9]{16}'
@@ -181,8 +187,10 @@ objects:
                 name: ${NAME}-db
           - name: APHLICT_SERVICE
             value: ${NAME}-aphlict
-          - name: APHLICT_HOST
-            value: 
+          - name: PHAB_BASE_HOST
+            value: ${PHAB_BASE_HOST}
+          - name: PHAB_FILE_HOST
+            value: ${PHAB_FILE_HOST}
           name: ${NAME}
           ports:
           - containerPort: 8080
@@ -249,7 +257,7 @@ objects:
             - "/bin/sh"
           args:
             - "-c"
-            - "/opt/app-root/src/phabricator/bin/phd start && tail -f /var/tmp/phd/log/daemons.log"
+            - "source /opt/app-root/etc/generate_container_user && /opt/app-root/src/phabricator/bin/phd start && tail -f /var/tmp/phd/log/daemons.log"
         restartPolicy: Always
     test: false
     triggers:
@@ -310,6 +318,23 @@ objects:
   metadata:
     name: ${NAME}
   spec:
+    host: ${PHAB_BASE_HOST}
+    port:
+      targetPort: webserver
+    tls:
+      termination: edge
+    to:
+      kind: Service
+      name: ${NAME}
+      weight: 100
+    wildcardPolicy: None
+
+- apiVersion: v1
+  kind: Route
+  metadata:
+    name: ${NAME}-file
+  spec:
+    host: ${PHAB_FILE_HOST}
     port:
       targetPort: webserver
     tls:
@@ -357,6 +382,8 @@ objects:
   metadata:
     name: ${NAME}-aphlict
   spec:
+    host: ${PHAB_BASE_HOST}
+    path: /ws
     port:
       targetPort: client
     tls:
