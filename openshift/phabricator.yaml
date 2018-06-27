@@ -370,6 +370,19 @@ objects:
 #------------------------------------------------- Database
 
 - apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: ${NAME}-db-config
+  data:
+    my.cnf: |
+      [mysqld]
+      symbolic-links = 0
+      skip_name_resolve
+      ignore-db-dir=lost+found
+      sql_mode=STRICT_ALL_TABLES
+      !includedir /etc/my.cnf.d
+
+- apiVersion: v1
   kind: Secret
   metadata:
     name: ${NAME}-db
@@ -421,6 +434,8 @@ objects:
                 name: ${NAME}-db
           - name: MYSQL_INNODB_BUFFER_POOL_SIZE
             value: ${MYSQL_POOL_SIZE}
+          - name: MYSQL_DEFAULTS_FILE
+            value: /opt/config/my.cnf
           image: ' '
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -443,10 +458,15 @@ objects:
           volumeMounts:
           - mountPath: /var/lib/mysql/data
             name: ${NAME}-db-data
+          - mountPath: /opt/config
+            name: ${NAME}-db-config
         volumes:
         - name: ${NAME}-db-data
           persistentVolumeClaim:
             claimName: ${NAME}-db
+        - name: ${NAME}-db-config
+          configMap:
+            name: ${NAME}-db-config
     triggers:
     - imageChangeParams:
         automatic: true
