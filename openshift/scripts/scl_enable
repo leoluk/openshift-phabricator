@@ -1,7 +1,7 @@
 unset BASH_ENV PROMPT_COMMAND ENV
 
 # Remove S2I directories from PATH (Phabricator complains about them)
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PATH=/opt/app-root/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export PATH
 
 source scl_source enable ${SCL_ENABLED} httpd24 $NODEJS_SCL

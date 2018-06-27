@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. /opt/app-root/etc/generate_container_user
+
+/usr/bin/$(basename $0) $@
+
