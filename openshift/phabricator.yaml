@@ -249,7 +249,7 @@ objects:
             - "/bin/sh"
           args:
             - "-c"
-            - "/opt/app-root/src/phabricator/bin/phd start && sleep inf"
+            - "/opt/app-root/src/phabricator/bin/phd start && tail -f /var/tmp/phd/log/daemons.log"
         restartPolicy: Always
     test: false
     triggers:
