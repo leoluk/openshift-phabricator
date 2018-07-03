@@ -9,6 +9,7 @@ phabricator/bin/config set repository.default-local-path ${APP_ROOT}/repositorie
 phabricator/bin/config set storage.local-disk.path ${APP_ROOT}/files
 
 phabricator/bin/config set pygments.enabled true
+phabricator/bin/config set files.enable-imagemagick true
 phabricator/bin/config set security.strict-transport-security true
 phabricator/bin/config set security.require-https true
 
