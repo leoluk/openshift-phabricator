@@ -78,12 +78,12 @@ objects:
             - name: config
               mountPath: /opt/app-root/src/phabricator/conf/local
             - name: ssh-keys
-              mountPath: /opt/app-root/ssh-keys
+              mountPath: /opt/ssh-keys
           command:
             - "/bin/sh"
           args:
             - "-c"
-            - "/usr/sbin/sshd-keygen && /sbin/sshd -D"
+            - "chmod 700 /opt/ssh-keys && chmod 770 /opt/app-root/repositories && chmod 770 /opt/app-root/src && sshd-keygen && /sbin/sshd -D"
         restartPolicy: Always
     test: false
     triggers:

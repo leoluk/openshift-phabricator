@@ -1,0 +1,12 @@
+Defaults   !visiblepw
+
+Defaults    always_set_home
+Defaults    match_group_by_gid
+
+Defaults    env_reset
+
+Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin
+
+root    ALL=(ALL)       ALL
+
+repo ALL=(default) SETENV: NOPASSWD: /usr/bin/git, /usr/bin/git-upload-pack, /usr/bin/git-receive-pack
