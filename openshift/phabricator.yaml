@@ -25,6 +25,10 @@ parameters:
 - displayName: Phabricator File/CDN Domain
   name: PHAB_FILE_HOST
   required: true
+- displayName: nodePort for sshd pod
+  name: PHAB_SSH_PORT
+  required: true
+  value: "30022"
 - description: Password for the MariaDB root user.
   displayName: MariaDB root Password
   from: '[a-zA-Z0-9]{16}'
@@ -191,6 +195,8 @@ objects:
             value: ${PHAB_BASE_HOST}
           - name: PHAB_FILE_HOST
             value: ${PHAB_FILE_HOST}
+          - name: PHAB_SSH_PORT
+            value: ${PHAB_SSH_PORT}
           name: ${NAME}
           ports:
           - containerPort: 8080

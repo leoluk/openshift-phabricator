@@ -3,6 +3,9 @@
 # Confusion due to symlinks in the path
 sed -i "s%^\$root =.*$%\$root = '${APP_ROOT}/src/phabricator';%" phabricator/bin/*
 
+# SSH won't know about our fancy PATH override
+sed -i '1 s%^.*$%#!/opt/rh/rh-php71/root/usr/bin/php%' phabricator/bin/ssh-exec
+
 # Custom preamble which forces HTTPS
 cp preamble.php phabricator/support/preamble.php
 

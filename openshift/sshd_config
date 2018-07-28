@@ -1,0 +1,18 @@
+Port 22
+Protocol 2
+PermitRootLogin no
+AllowAgentForwarding no
+AllowTcpForwarding no
+PrintMotd no
+PrintLastLog no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+
+HostKey /opt/app-root/ssh-keys/ssh_host_rsa_key
+HostKey /opt/app-root/ssh-keys/ssh_host_ecdsa_key
+HostKey /opt/app-root/ssh-keys/ssh_host_ed25519_key
+
+AuthorizedKeysFile none
+AuthorizedKeysCommand /usr/local/bin/phabricator-ssh-hook
+AuthorizedKeysCommandUser repo
+AllowUsers repo

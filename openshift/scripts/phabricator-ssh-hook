@@ -1,0 +1,15 @@
+#!/bin/sh
+# https://github.com/phacility/phabricator/blob/master/resources/sshd/phabricator-ssh-hook.sh
+
+source scl_source enable rh-php71
+
+VCSUSER="repo"
+ROOT="/opt/app-root/src/phabricator"
+
+if [ "$1" != "$VCSUSER" ];
+then
+  exit 1
+fi
+
+exec "$ROOT/bin/ssh-auth" $@
+

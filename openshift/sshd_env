@@ -1,0 +1,6 @@
+# /etc/sysconfig/sshd
+
+AUTOCREATE_SERVER_KEYS="RSA ECDSA ED25519"
+RSA_KEY=/opt/app-root/ssh-keys/ssh_host_rsa_key
+ECDSA_KEY=/opt/app-root/ssh-keys/ssh_host_ecdsa_key
+ED25519_KEY=/opt/app-root/ssh-keys/ssh_host_ed25519_key

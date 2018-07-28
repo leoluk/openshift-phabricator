@@ -13,4 +13,12 @@ COPY ./scripts/ /opt/app-root/etc/
 COPY ./scripts/nss_wrapper /opt/app-root/bin/git
 COPY ./scripts/nss_wrapper /opt/app-root/bin/ssh
 
+# Custom SSH config
+COPY ./sshd_config /etc/ssh/sshd_config
+COPY ./sshd_env /etc/sysconfig/sshd
+COPY ./scripts/phabricator-ssh-hook /usr/local/bin/phabricator-ssh-hook
+
+# VCS user for repo hosting
+RUN useradd -u 1002 -M -g 0 -p NP -s /bin/sh repo
+
 USER 1001
