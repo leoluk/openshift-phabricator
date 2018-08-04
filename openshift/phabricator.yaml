@@ -25,6 +25,9 @@ parameters:
 - displayName: Phabricator File/CDN Domain
   name: PHAB_FILE_HOST
   required: true
+- displayName: Phabricator SSH Domain
+  name: PHAB_SSH_HOST
+  required: false
 - displayName: nodePort for sshd pod
   name: PHAB_SSH_PORT
   required: true
@@ -195,6 +198,8 @@ objects:
             value: ${PHAB_BASE_HOST}
           - name: PHAB_FILE_HOST
             value: ${PHAB_FILE_HOST}
+          - name: PHAB_SSH_PORT
+            value: ${PHAB_SSH_PORT}
           - name: PHAB_SSH_PORT
             value: ${PHAB_SSH_PORT}
           name: ${NAME}
