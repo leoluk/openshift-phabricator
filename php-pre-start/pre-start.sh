@@ -16,7 +16,12 @@ phabricator/bin/config set security.require-https true
 phabricator/bin/config set phabricator.base-uri https://${PHAB_BASE_HOST}
 phabricator/bin/config set security.alternate-file-domain https://${PHAB_FILE_HOST}
 
-phabricator/bin/config set diffusion.ssh-host ${PHAB_BASE_HOST}
+if [[ -z $PHAB_SSH_HOST ]]
+then
+    PHAB_SSH_HOST="${PHAB_BASE_HOST}"
+fi
+
+phabricator/bin/config set diffusion.ssh-host ${PHAB_SSH_HOST}
 phabricator/bin/config set diffusion.ssh-port ${PHAB_SSH_PORT}
 phabricator/bin/config set diffusion.ssh-user repo
 phabricator/bin/config set phd.user default
