@@ -6,14 +6,13 @@ Example repository on how to deploy a fully-functional Phabricator instance on O
 
     oc process -f openshift/phabricator.yaml \
       PHAB_BASE_HOST=phabricator.svc.example.com \
-      PHAB_SSH_HOST=phabricator-ssh.svc.example.com \
       PHAB_FILE_HOST=phabricator-cdn.svc.example.com \
       PHAB_SSH_PORT=30022 \
       | oc create -f -
 
-The variable PHAB_SSH_HOST is optional, if no host is provided the
-PHAB_BASE_HOST will be used for SSH. This setting can be used to choose a
-different domain for SSH e.g. if you are protecting the PHAB_BASE_HOST with CloudFlare.
+The variable `PHAB_SSH_HOST` is optional, if no host is provided the
+`PHAB_BASE_HOST` will be used for SSH. This setting can be used to choose a
+different domain for SSH e.g. if you are protecting the `PHAB_BASE_HOST` with CloudFlare.
 
 If you want SSH repository hosting, you will need to assign your Phabricator project
 the `anyuid` permission. The sshd server needs to run as root inside the container.
