@@ -9,18 +9,19 @@ Example repository on how to deploy a fully-functional Phabricator instance on O
       PHAB_FILE_HOST=phabricator-cdn.svc.example.com \
       PHAB_SSH_PORT=30022 \
       | oc create -f -
+      
+    oc adm policy add-scc-to-user anyuid -z default
+    oc process -f openshift/phabricator-sshd.yaml \
+      PHAB_SSH_PORT=30022 \
+      | oc create -f      
+
+If you want SSH repository hosting, you will need to assign your Phabricator project
+the `anyuid` permission. The sshd server needs to run as root inside the container
+(see #7 - we don't currently support deployment without anyuid, but it's an easy fix).
 
 The variable `PHAB_SSH_HOST` is optional, if no host is provided the
 `PHAB_BASE_HOST` will be used for SSH. This setting can be used to choose a
 different domain for SSH e.g. if you are protecting the `PHAB_BASE_HOST` with CloudFlare.
-
-If you want SSH repository hosting, you will need to assign your Phabricator project
-the `anyuid` permission. The sshd server needs to run as root inside the container.
-
-    oc adm policy add-scc-to-user anyuid -z default
-    oc process -f openshift/phabricator-sshd.yaml \
-      PHAB_SSH_PORT=30022 \
-      | oc create -f
 
 This will create a nodePort for SSH on port 30022. You can override the default port
 with the `NODE_PORT` template variable. If you don't want to use a node port, you can
