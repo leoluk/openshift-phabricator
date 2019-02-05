@@ -22,8 +22,6 @@ the `anyuid` permission. The sshd server needs to run as root inside the contain
       PHAB_SSH_PORT=30022 \
       | oc create -f
 
-TODO: now that we set phd.user, `anyuid` is required if we don't use SSH.
-
 This will create a nodePort for SSH on port 30022. You can override the default port
 with the `NODE_PORT` template variable. If you don't want to use a node port, you can
 assign an `ExternalIP` (see OpenShift docs) or even tunnel SSH via the router.
