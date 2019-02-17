@@ -2,6 +2,8 @@
 
 Example repository on how to deploy a fully-functional Phabricator instance on OpenShift.
 
+This role is used in production at multiple companies.
+
     oc new-project phab
 
     oc process -f openshift/phabricator.yaml \
