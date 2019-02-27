@@ -50,3 +50,7 @@ phabricator/bin/config set notification.servers '[
 echo "Running database migrations..."
 phabricator/bin/storage upgrade --force
 
+if [ "${PHAB_INSTALL_SOURCEGRAPH}" = "true" ]; then
+    echo "Rebuilding assets..."
+    phabricator/bin/celerity map
+fi

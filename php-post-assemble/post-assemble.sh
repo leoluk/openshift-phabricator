@@ -25,7 +25,4 @@ if [ "${PHAB_INSTALL_SOURCEGRAPH}" = "true" ]; then
             exit 1
         fi
     ) || exit 1
-
-    echo "Rebuilding assets..."
-    phabricator/bin/celerity map
 fi
