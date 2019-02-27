@@ -19,6 +19,18 @@ parameters:
   name: GIT_REF
   required: true
   value: master
+- displayName: Sourcegraph Extension Git Repository
+  name: SOURCEGRAPH_GIT_REPO
+  required: true
+  value: https://github.com/sourcegraph/phabricator-extension.git
+- displayName: Sourcegraph Git Reference
+  name: SOURCEGRAPH_GIT_REF
+  required: true
+  value: release-v1.1
+- displayName: Sourcegraph Git HEAD Commit Pin
+  name: SOURCEGRAPH_GIT_PIN
+  required: true
+  value: 0fa8787e1377e76549b0ec9b71775388c67a5939
 - displayName: Phabricator Base Domain
   name: PHAB_BASE_HOST
   required: true
@@ -32,6 +44,13 @@ parameters:
   name: PHAB_SSH_PORT
   required: true
   value: "30022"
+- displayName: Sourcegraph support
+  name: PHAB_INSTALL_SOURCEGRAPH
+  required: true
+  value: "false"
+- displayName: Sourcegraph domain
+  name: PHAB_SOURCEGRAPH_HOST
+  required: false
 - description: Password for the MariaDB root user.
   displayName: MariaDB root Password
   from: '[a-zA-Z0-9]{16}'
@@ -142,6 +161,15 @@ objects:
         from:
           kind: ImageStreamTag
           name: ${NAME}-php:7.1
+        env:
+          - name: PHAB_INSTALL_SOURCEGRAPH
+            value: ${PHAB_INSTALL_SOURCEGRAPH}
+          - name: SOURCEGRAPH_GIT_REPO
+            value: ${SOURCEGRAPH_GIT_REPO}
+          - name: SOURCEGRAPH_GIT_REF
+            value: ${SOURCEGRAPH_GIT_REF}
+          - name: SOURCEGRAPH_GIT_PIN
+            value: ${SOURCEGRAPH_GIT_PIN}
       type: Source
     triggers:
     - imageChange: {}
@@ -202,6 +230,8 @@ objects:
             value: ${PHAB_SSH_HOST}
           - name: PHAB_SSH_PORT
             value: ${PHAB_SSH_PORT}
+          - name: PHAB_SOURCEGRAPH_HOST
+            value: ${PHAB_SOURCEGRAPH_HOST}
           name: ${NAME}
           ports:
           - containerPort: 8080

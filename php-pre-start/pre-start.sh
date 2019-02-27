@@ -21,6 +21,11 @@ then
     PHAB_SSH_HOST="${PHAB_BASE_HOST}"
 fi
 
+if [[ -z $PHAB_SOURCEGRAPH_HOST ]]
+then
+    phabricator/bin/config set sourcegraph.url ${PHAB_SOURCEGRAPH_HOST}
+fi
+
 phabricator/bin/config set diffusion.ssh-host ${PHAB_SSH_HOST}
 phabricator/bin/config set diffusion.ssh-port ${PHAB_SSH_PORT}
 phabricator/bin/config set diffusion.ssh-user repo
