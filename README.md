@@ -1,6 +1,6 @@
 # openshift-phabricator
 
-Example repository on how to deploy a fully-functional Phabricator instance on OpenShift.
+Opinionated, fully-functional Phabricator instance on OpenShift.
 
 This role is used in production at multiple companies.
 
@@ -39,6 +39,7 @@ Working:
   - phd daemons
   - Aphlict notification server
   - SSH repository hosting (tested with Git)
+  - Optional: Sourcegraph integration
 
 Next steps:
 
@@ -50,3 +51,26 @@ Next steps:
   - If you want Phabricator to send mails, configure the mailer:
     https://secure.phabricator.com/book/phabricator/article/configuring_outbound_email/
 
+# Sourcegraph
+
+This role optionally deploys a single-node Sourcegraph instance and integrates it with Phabricator.
+
+    oc process -f openshift/sourcegraph.yaml \
+      SOURCEGRAPH_FRONTEND_HOST=sourcegraph.svc.example.com \
+      SOURCEGRAPH_MGMT_HOST=sourcegraph-mgmt.svc.example.com
+
+By default, the deployment is set up to authenticate against OpenShift itself.
+You will need to configure authentication in the Sourcegraph Management Console:
+
+    {
+      "auth.providers": [
+        {
+          "type": "http-header",
+          "usernameHeader": "X-Forwarded-User"
+        }
+      ]
+    }
+
+After logging in via OpenShift, you'll have to revert to using `builtin` auth,
+log in via the static admin user, promote your OpenShift to site admin, then
+revert back to `http-header` auth. This appears to be a limitation in Sourcegraph.
