@@ -69,7 +69,7 @@ You will also need to set extra variables for the main deployment
       PHAB_BASE_HOST=phabricator.svc.example.com \
       PHAB_FILE_HOST=phabricator-cdn.svc.example.com \
       PHAB_INSTALL_SOURCEGRAPH=true \
-      PHAB_SOURCEGRAPH_HOST=sourcegraph.svc.example.com \
+      PHAB_SOURCEGRAPH_HOST=https://sourcegraph.svc.example.com \
       PHAB_SSH_PORT=30022 \
       | oc create -f -
 
