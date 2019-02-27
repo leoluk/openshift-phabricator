@@ -16,7 +16,7 @@ sed -i 's/opcache.validate_timestamps=.*/opcache.validate_timestamps=0/' ${APP_R
 if [ "${PHAB_INSTALL_SOURCEGRAPH}" = "true" ]; then
     echo "Installing Sourcegraph extension..."
 
-    git clone -b ${SOURCEGRAPH_GIT_REF} ${SOURCEGRAPH_GIT_REPO} phabricator/src/extensions/sourcegraph
+    git clone --depth=1 -b ${SOURCEGRAPH_GIT_REF} ${SOURCEGRAPH_GIT_REPO} phabricator/src/extensions/sourcegraph
 
     (
         cd phabricator/src/extensions/sourcegraph
