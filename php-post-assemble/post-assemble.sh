@@ -26,3 +26,10 @@ if [ "${PHAB_INSTALL_SOURCEGRAPH}" = "true" ]; then
         fi
     ) || exit 1
 fi
+
+# Apply custom Phabricator patches
+if [ "${PHAB_APPLY_PATCHES}" = "true" ]; then
+  for path in patches/phabricator/*; do
+    patch -d phabricator -p1 < "$path"
+  done
+fi

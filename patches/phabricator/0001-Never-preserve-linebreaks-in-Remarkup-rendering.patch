@@ -1,0 +1,68 @@
+From 5f1a37f1447d68e42a05dac3d23f9e2018a8dd45 Mon Sep 17 00:00:00 2001
+From: Leopold Schabel <leo@nexantic.com>
+Date: Wed, 23 Oct 2019 14:10:22 +0200
+Subject: [PATCH] Never preserve linebreaks in Remarkup rendering
+
+This ensures that Remarkup behavior matches Markdown
+---
+ .../phriction/controller/PhrictionMarkupPreviewController.php   | 2 +-
+ src/infrastructure/markup/PhabricatorMarkupEngine.php           | 2 +-
+ .../markup/PhabricatorMarkupPreviewController.php               | 2 +-
+ src/infrastructure/markup/view/PHUIRemarkupView.php             | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/applications/phriction/controller/PhrictionMarkupPreviewController.php b/src/applications/phriction/controller/PhrictionMarkupPreviewController.php
+index b5c97e5c6..9cacb96e7 100644
+--- a/src/applications/phriction/controller/PhrictionMarkupPreviewController.php
++++ b/src/applications/phriction/controller/PhrictionMarkupPreviewController.php
+@@ -12,7 +12,7 @@ final class PhrictionMarkupPreviewController
+ 
+     $output = PhabricatorMarkupEngine::renderOneObject(
+       id(new PhabricatorMarkupOneOff())
+-        ->setPreserveLinebreaks(true)
++        ->setPreserveLinebreaks(false)
+         ->setDisableCache(true)
+         ->setContent($text),
+       'default',
+diff --git a/src/infrastructure/markup/PhabricatorMarkupEngine.php b/src/infrastructure/markup/PhabricatorMarkupEngine.php
+index 35de84665..eed508b0d 100644
+--- a/src/infrastructure/markup/PhabricatorMarkupEngine.php
++++ b/src/infrastructure/markup/PhabricatorMarkupEngine.php
+@@ -463,7 +463,7 @@ final class PhabricatorMarkupEngine extends Phobject {
+       'uri.full' => false,
+       'syntax-highlighter.engine' => PhabricatorEnv::getEnvConfig(
+         'syntax-highlighter.engine'),
+-      'preserve-linebreaks' => true,
++      'preserve-linebreaks' => false,
+     );
+   }
+ 
+diff --git a/src/infrastructure/markup/PhabricatorMarkupPreviewController.php b/src/infrastructure/markup/PhabricatorMarkupPreviewController.php
+index 743bda085..5aebd4139 100644
+--- a/src/infrastructure/markup/PhabricatorMarkupPreviewController.php
++++ b/src/infrastructure/markup/PhabricatorMarkupPreviewController.php
+@@ -11,7 +11,7 @@ final class PhabricatorMarkupPreviewController
+ 
+     $output = PhabricatorMarkupEngine::renderOneObject(
+       id(new PhabricatorMarkupOneOff())
+-        ->setPreserveLinebreaks(true)
++        ->setPreserveLinebreaks(false)
+         ->setDisableCache(true)
+         ->setContent($text),
+       'default',
+diff --git a/src/infrastructure/markup/view/PHUIRemarkupView.php b/src/infrastructure/markup/view/PHUIRemarkupView.php
+index d60d28b5d..694b2c5bc 100644
+--- a/src/infrastructure/markup/view/PHUIRemarkupView.php
++++ b/src/infrastructure/markup/view/PHUIRemarkupView.php
+@@ -76,7 +76,7 @@ final class PHUIRemarkupView extends AphrontView {
+     if ($options) {
+       $oneoff->setEngine($this->getEngine());
+     } else {
+-      $oneoff->setPreserveLinebreaks(true);
++      $oneoff->setPreserveLinebreaks(false);
+     }
+ 
+     $generate_toc = $this->getGenerateTableOfContents();
+-- 
+2.21.0
+

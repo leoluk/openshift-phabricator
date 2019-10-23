@@ -44,6 +44,10 @@ parameters:
   name: PHAB_SSH_PORT
   required: true
   value: "30022"
+- displayName: Apply custom Phabricator patches
+  name: PHAB_APPLY_PATCHES
+  required: true
+  value: "false"
 - displayName: Sourcegraph support
   name: PHAB_INSTALL_SOURCEGRAPH
   required: true
@@ -164,6 +168,8 @@ objects:
         env:
           - name: PHAB_INSTALL_SOURCEGRAPH
             value: ${PHAB_INSTALL_SOURCEGRAPH}
+          - name: PHAB_APPLY_PATCHES
+            value: ${PHAB_APPLY_PATCHES}
           - name: SOURCEGRAPH_GIT_REPO
             value: ${SOURCEGRAPH_GIT_REPO}
           - name: SOURCEGRAPH_GIT_REF
