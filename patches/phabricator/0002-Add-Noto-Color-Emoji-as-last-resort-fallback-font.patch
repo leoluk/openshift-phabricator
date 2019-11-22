@@ -1,0 +1,64 @@
+From 084924773400d26e524eecc0e497a8b9f1c9e0b1 Mon Sep 17 00:00:00 2001
+From: Leopold Schabel <leo@nexantic.com>
+Date: Fri, 22 Nov 2019 23:17:05 +0100
+Subject: [PATCH] Add Noto Color Emoji as last-resort fallback font
+
+This fixes emoji on Fedora
+---
+ .../celerity/postprocessor/CelerityDarkModePostprocessor.php  | 4 ++--
+ .../celerity/postprocessor/CelerityDefaultPostprocessor.php   | 4 ++--
+ .../celerity/postprocessor/CelerityLargeFontPostprocessor.php | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/applications/celerity/postprocessor/CelerityDarkModePostprocessor.php b/src/applications/celerity/postprocessor/CelerityDarkModePostprocessor.php
+index 39ee4be57..9e10c428f 100644
+--- a/src/applications/celerity/postprocessor/CelerityDarkModePostprocessor.php
++++ b/src/applications/celerity/postprocessor/CelerityDarkModePostprocessor.php
+@@ -17,11 +17,11 @@ final class CelerityDarkModePostprocessor
+       // Fonts
+       'basefont' => "13px 'Segoe UI', 'Segoe UI Emoji', ".
+         "'Segoe UI Symbol', 'Lato', 'Helvetica Neue', ".
+-        "Helvetica, Arial, sans-serif",
++        "Helvetica, Arial, sans-serif, Noto Color Emoji",
+ 
+       'fontfamily' => "'Segoe UI', 'Segoe UI Emoji', ".
+         "'Segoe UI Symbol', 'Lato', 'Helvetica Neue', ".
+-        "Helvetica, Arial, sans-serif",
++        "Helvetica, Arial, sans-serif, Noto Color Emoji",
+ 
+       // Drop Shadow
+       'dropshadow' => '0 2px 12px rgba(0, 0, 0, .20)',
+diff --git a/src/applications/celerity/postprocessor/CelerityDefaultPostprocessor.php b/src/applications/celerity/postprocessor/CelerityDefaultPostprocessor.php
+index 8cbea36d0..38cc0a0f8 100644
+--- a/src/applications/celerity/postprocessor/CelerityDefaultPostprocessor.php
++++ b/src/applications/celerity/postprocessor/CelerityDefaultPostprocessor.php
+@@ -22,11 +22,11 @@ final class CelerityDefaultPostprocessor
+       // Fonts
+       'basefont' => "13px 'Segoe UI', 'Segoe UI Emoji', ".
+         "'Segoe UI Symbol', 'Lato', 'Helvetica Neue', ".
+-        "Helvetica, Arial, sans-serif",
++        "Helvetica, Arial, sans-serif, Noto Color Emoji",
+ 
+       'fontfamily' => "'Segoe UI', 'Segoe UI Emoji', ".
+         "'Segoe UI Symbol', 'Lato', 'Helvetica Neue', ".
+-        "Helvetica, Arial, sans-serif",
++        "Helvetica, Arial, sans-serif, Noto Color Emoji",
+ 
+       // Drop Shadow
+       'dropshadow' => '0 2px 12px rgba(0, 0, 0, .20)',
+diff --git a/src/applications/celerity/postprocessor/CelerityLargeFontPostprocessor.php b/src/applications/celerity/postprocessor/CelerityLargeFontPostprocessor.php
+index 4dbe56195..bb30997dc 100644
+--- a/src/applications/celerity/postprocessor/CelerityLargeFontPostprocessor.php
++++ b/src/applications/celerity/postprocessor/CelerityLargeFontPostprocessor.php
+@@ -16,7 +16,7 @@ final class CelerityLargeFontPostprocessor
+ 
+       'basefont' => "14px 'Segoe UI', 'Segoe UI Web Regular', ".
+         "'Segoe UI Symbol', 'Lato', 'Helvetica Neue', Helvetica, ".
+-        "Arial, sans-serif",
++        "Arial, sans-serif, Noto Color Emoji",
+ 
+       // Font Sizes
+       'biggestfontsize' => '16px',
+-- 
+2.21.0
+
