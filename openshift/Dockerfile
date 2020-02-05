@@ -12,6 +12,7 @@ RUN yum install -y --setopt=tsflags=nodocs \
     rsyslog \
     sudo \
     sendmail \
+    mariadb \
     && yum clean all -y
 
 # Copy scripts
