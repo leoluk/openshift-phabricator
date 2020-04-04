@@ -31,4 +31,6 @@ COPY ./sudoers /etc/sudoers
 # VCS user for repo hosting
 RUN useradd -g 0 -u 1002 -M -d /opt/app-root/src -p NP -s /bin/sh repo
 
+RUN fix-permissions /opt/app-root
+
 USER 1001
