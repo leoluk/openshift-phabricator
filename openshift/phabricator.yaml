@@ -304,7 +304,7 @@ objects:
             - "/bin/sh"
           args:
             - "-c"
-            - "source /opt/app-root/etc/generate_container_user && /opt/app-root/src/phabricator/bin/phd start && tail -f /var/tmp/phd/log/daemons.log"
+            - "/opt/app-root/src/phabricator/bin/phd start && tail -f /var/tmp/phd/log/daemons.log"
         restartPolicy: Always
     test: false
     triggers:
