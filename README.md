@@ -10,12 +10,12 @@ This role is used in production at multiple companies.
       PHAB_BASE_HOST=phabricator.svc.example.com \
       PHAB_FILE_HOST=phabricator-cdn.svc.example.com \
       PHAB_SSH_PORT=30022 \
-      | oc create -f -
+      | oc apply -f -
       
     oc adm policy add-scc-to-user anyuid -z default
     oc process -f openshift/phabricator-sshd.yaml \
       PHAB_SSH_PORT=30022 \
-      | oc create -f      
+      | oc apply -f      
 
 If you want SSH repository hosting, you will need to assign your Phabricator project
 the `anyuid` permission. The sshd server needs to run as root inside the container
@@ -71,7 +71,7 @@ You will also need to set extra variables for the main deployment
       PHAB_INSTALL_SOURCEGRAPH=true \
       PHAB_SOURCEGRAPH_HOST=https://sourcegraph.svc.example.com \
       PHAB_SSH_PORT=30022 \
-      | oc create -f -
+      | oc apply -f -
 
 By default, the deployment is set up to authenticate against OpenShift itself.
 You will need to configure authentication in the Sourcegraph Management Console:
