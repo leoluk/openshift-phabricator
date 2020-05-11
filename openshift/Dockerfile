@@ -19,6 +19,9 @@ RUN yum install -y --setopt=tsflags=nodocs \
 # Phabricator wants pygmentize
 RUN ln -s /usr/bin/pygmentize-3.6 /usr/bin/pygmentize
 
+# TODO: ssh-exec ignores $PATH
+RUN ln -s /opt/rh/rh-php71/root/usr/bin/php /usr/bin/php
+
 # Copy scripts
 COPY ./scripts/ /opt/app-root/etc/
 
