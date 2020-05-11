@@ -2,6 +2,7 @@
 # https://github.com/phacility/phabricator/blob/master/resources/sshd/phabricator-ssh-hook.sh
 
 source scl_source enable rh-php71
+export PATH
 
 VCSUSER="repo"
 ROOT="/opt/app-root/src/phabricator"
