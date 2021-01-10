@@ -19,18 +19,6 @@ parameters:
   name: GIT_REF
   required: true
   value: master
-- displayName: Sourcegraph Extension Git Repository
-  name: SOURCEGRAPH_GIT_REPO
-  required: true
-  value: https://github.com/sourcegraph/phabricator-extension.git
-- displayName: Sourcegraph Git Reference
-  name: SOURCEGRAPH_GIT_REF
-  required: true
-  value: release-v1.1
-- displayName: Sourcegraph Git HEAD Commit Pin
-  name: SOURCEGRAPH_GIT_PIN
-  required: true
-  value: 0fa8787e1377e76549b0ec9b71775388c67a5939
 - displayName: Phabricator Base Domain
   name: PHAB_BASE_HOST
   required: true

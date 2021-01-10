@@ -12,21 +12,6 @@ cp preamble.php phabricator/support/preamble.php
 # Disable opcache revalidation
 sed -i 's/opcache.validate_timestamps=.*/opcache.validate_timestamps=0/' ${APP_ROOT}/etc/php.d/10-opcache.ini.template
 
-# Install Sourcegraph extension
-if [ "${PHAB_INSTALL_SOURCEGRAPH}" = "true" ]; then
-    echo "Installing Sourcegraph extension..."
-
-    git clone --depth=1 -b ${SOURCEGRAPH_GIT_REF} ${SOURCEGRAPH_GIT_REPO} phabricator/src/extensions/sourcegraph
-
-    (
-        cd phabricator/src/extensions/sourcegraph
-        if [[ "$(git rev-parse HEAD)" != "${SOURCEGRAPH_GIT_PIN}" ]]; then
-            echo "Wrong HEAD revision for Sourcegraph extension"
-            exit 1
-        fi
-    ) || exit 1
-fi
-
 # Apply custom Phabricator patches
 if [ "${PHAB_APPLY_PATCHES}" = "true" ]; then
   for path in patches/phabricator/*; do
